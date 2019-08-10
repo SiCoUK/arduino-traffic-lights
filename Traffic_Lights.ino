@@ -9,7 +9,7 @@
 bool pedestrians = false;   //Flag to remember that a pedestrian pressed on the switch
 
 // State Machine
-enum TrafficLights {ALL_RED, UP_RED, UP_REDAMBER, UP_GREEN, UP_AMBER, DOWN_RED, DOWN_REDAMBER, DOWN_GREEN, DOWN_AMBER, WALK_ENTER, WALK_ON, WALK_FLASH, WALK_OFF, FLASH_AMBER, FLASH_AMBER_OFF};
+enum TrafficLights {ALL_RED, UP_RED, UP_REDAMBER, UP_GREEN, UP_AMBER, WALK_ENTER, WALK_ON, WALK_FLASH, WALK_OFF, FLASH_AMBER, FLASH_AMBER_OFF};
 TrafficLights autoState = ALL_RED;
 TrafficLights manualState = ALL_RED;
 TrafficLights lastUpState = ALL_RED;
@@ -176,18 +176,6 @@ void manualLightButtonOnPress(Button& b){
     }
     case UP_GREEN_BUTTON: {
       manualState = UP_GREEN;
-      break;
-    }
-    case DOWN_RED_BUTTON: {
-      manualState = DOWN_RED;
-      break;
-    }
-    case DOWN_AMBER_BUTTON: {
-      manualState = DOWN_AMBER;
-      break;
-    }
-    case DOWN_GREEN_BUTTON: {
-      manualState = DOWN_GREEN;
       break;
     }
     case PED_RED_BUTTON: {

@@ -81,53 +81,6 @@ void manualLights() {
       
       break;
     }
-    case DOWN_RED: {
-      if (stateEntered == false) {
-        Serial.println("MANUAL DOWN RED");
-        stateEntered = true;
-
-        changeButtonLed(PINE_Y_PIN, 0);
-        changeButtonLed(PINE_G_PIN, 0);
-        changeButtonLed(PINE_R_PIN, buttonLedBrightness);
-  
-        lastDownState = manualState;
-      }
-      break;
-    }
-    case DOWN_AMBER: {
-      
-      if (stateEntered == false) {
-        Serial.println("MANUAL DOWN_AMBER Enter");
-        stateEntered = true;
-        
-        if (lastDownState == DOWN_GREEN) {
-          changeButtonLed(PINE_G_PIN, 0);
-          changeButtonLed(PINE_Y_PIN, buttonLedBrightness);
-        } else {
-          changeButtonLed(PINE_Y_PIN, buttonLedBrightness);
-        }
-        lastDownState = manualState;
-      }
-      
-      break;
-    }
-    case DOWN_GREEN: {
-      
-      if (stateEntered == false) {
-        Serial.println("MANUAL DOWN_GREEN Enter");
-        stateEntered = true;
-        
-        //lcdCarStatus("Green");
-
-        changeButtonLed(PINE_R_PIN, 0);
-        changeButtonLed(PINE_Y_PIN, 0);
-        changeButtonLed(PINE_G_PIN, buttonLedBrightness);
-
-        lastDownState = manualState;
-      }
-      
-      break;
-    }
     case FLASH_AMBER: { // Turn on flash amber
       if (stateEntered == false) {
         Serial.println("FLASH AMBER");
