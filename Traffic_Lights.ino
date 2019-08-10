@@ -13,7 +13,6 @@ enum TrafficLights {ALL_RED, UP_RED, UP_REDAMBER, UP_GREEN, UP_AMBER, WALK_ENTER
 TrafficLights autoState = ALL_RED;
 TrafficLights manualState = ALL_RED;
 TrafficLights lastUpState = ALL_RED;
-TrafficLights lastDownState = ALL_RED;
 
 enum PedestrianLights {PED_RED, PED_GREEN};
 PedestrianLights pedState = PED_RED;
@@ -114,15 +113,15 @@ int buttonLedBrightness = 4000;    // how bright the LED is
 #define PED_GREEN_BUTTON 32
 
 Button flashButton = Button(FLASH_BUTTON, BUTTON_PULLUP_INTERNAL);
-Button allRedButton = Button(ALL_RED_BUTTON, BUTTON_PULLUP_INTERNAL);
+//Button allRedButton = Button(ALL_RED_BUTTON, BUTTON_PULLUP_INTERNAL);
 
 Button manualButton = Button(MANUAL_BUTTON, BUTTON_PULLUP_INTERNAL);
 Button upRedButton = Button(UP_RED_BUTTON, BUTTON_PULLUP_INTERNAL);
 Button upAmberButton = Button(UP_AMBER_BUTTON, BUTTON_PULLUP_INTERNAL);
 Button upGreenButton = Button(UP_GREEN_BUTTON, BUTTON_PULLUP_INTERNAL);
-Button downRedButton = Button(DOWN_RED_BUTTON, BUTTON_PULLUP_INTERNAL);
-Button downAmberButton = Button(DOWN_AMBER_BUTTON, BUTTON_PULLUP_INTERNAL);
-Button downGreenButton = Button(DOWN_GREEN_BUTTON, BUTTON_PULLUP_INTERNAL);
+//Button downRedButton = Button(DOWN_RED_BUTTON, BUTTON_PULLUP_INTERNAL);
+//Button downAmberButton = Button(DOWN_AMBER_BUTTON, BUTTON_PULLUP_INTERNAL);
+//Button downGreenButton = Button(DOWN_GREEN_BUTTON, BUTTON_PULLUP_INTERNAL);
 
 Button pedButton = Button(PED_WAIT_BUTTON, BUTTON_PULLUP_INTERNAL);
 Button pedRedButton = Button(PED_RED_BUTTON, BUTTON_PULLUP_INTERNAL);
@@ -150,10 +149,10 @@ void manualButtonOnPress(Button& b){
   autoState = ALL_RED;
 }
 
-void allRedButtonOnPress(Button& b){
+/*void allRedButtonOnPress(Button& b){
   Serial.print("onPress: ");
   Serial.println(b.pin);
-}
+}*/
 
 // Manual Button Press Method
 void manualLightButtonOnPress(Button& b){
@@ -316,15 +315,15 @@ void setup() {
   // Buttons
   pedButton.pressHandler(pedButtonOnPress);
   flashButton.pressHandler(flashButtonOnPress);
-  allRedButton.pressHandler(allRedButtonOnPress);
+  //llRedButton.pressHandler(allRedButtonOnPress);
   manualButton.pressHandler(manualButtonOnPress);
   
   upRedButton.pressHandler(manualLightButtonOnPress);
   upAmberButton.pressHandler(manualLightButtonOnPress);
   upGreenButton.pressHandler(manualLightButtonOnPress);
-  downRedButton.pressHandler(manualLightButtonOnPress);
-  downAmberButton.pressHandler(manualLightButtonOnPress);
-  downGreenButton.pressHandler(manualLightButtonOnPress);
+  //downRedButton.pressHandler(manualLightButtonOnPress);
+  //downAmberButton.pressHandler(manualLightButtonOnPress);
+  //downGreenButton.pressHandler(manualLightButtonOnPress);
   
   pedRedButton.pressHandler(manualLightButtonOnPress);
   pedGreenButton.pressHandler(manualLightButtonOnPress);

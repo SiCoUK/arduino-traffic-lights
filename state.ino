@@ -15,8 +15,8 @@ void manualLights() {
         lcdCarStatus("Red");
         lcdPedStatus("Red");
 
-        lastUpState = manualState;
-        lastDownState = manualState;
+        // Technically this is UP_RED
+        lastUpState = UP_RED;
       }
       break;
     }
@@ -25,14 +25,7 @@ void manualLights() {
         Serial.println("MANUAL UP RED");
         stateEntered = true;
 
-        changeButtonLed(MAIN_Y_PIN, 0);
-        changeButtonLed(MAIN_G_PIN, 0);
-        changeButtonLed(MAIN_R_PIN, buttonLedBrightness);
-  
-        relayCar.turn_on_channel(carRedRelay);
-        relayCar.turn_off_channel(carAmberRelay);
-        relayCar.turn_off_channel(carGreenRelay);
-  
+        setLightsRed();
         lcdCarStatus("Red");
 
         lastUpState = manualState;
@@ -47,14 +40,11 @@ void manualLights() {
         
         lcdCarStatus("Red/Amber");
 
+        // Decide whether to show red/amber or just amber
         if (lastUpState == UP_GREEN) {
-          changeButtonLed(MAIN_G_PIN, 0);
-          changeButtonLed(MAIN_Y_PIN, buttonLedBrightness);
-          relayCar.turn_off_channel(carGreenRelay);
-          relayCar.turn_on_channel(carAmberRelay);
-        } else {
-          changeButtonLed(MAIN_Y_PIN, buttonLedBrightness);
-          relayCar.turn_on_channel(carAmberRelay);
+          setLightsAmber();
+        } else if (lastUpState == UP_RED) {
+          setLightsAmberRed();
         }
         lastUpState = manualState;
       }
@@ -68,13 +58,7 @@ void manualLights() {
         stateEntered = true;
         
         lcdCarStatus("Green");
-
-        changeButtonLed(MAIN_R_PIN, 0);
-        changeButtonLed(MAIN_Y_PIN, 0);
-        changeButtonLed(MAIN_G_PIN, buttonLedBrightness);
-        relayCar.turn_off_channel(carRedRelay);
-        relayCar.turn_off_channel(carAmberRelay);
-        relayCar.turn_on_channel(carGreenRelay);
+        setLightsGreen();
 
         lastUpState = manualState;
       }
@@ -118,7 +102,7 @@ void manualLights() {
         lcdPedStatus("Red");
         pedState = PED_RED;
   
-        lastDownState = manualState;
+        //lastDownState = manualState;
       }
       break;
     }
@@ -131,7 +115,7 @@ void manualLights() {
         lcdPedStatus("Green");
         pedState = PED_GREEN;
   
-        lastDownState = manualState;
+        //lastDownState = manualState;
       }
       break;
     }
