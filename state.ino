@@ -190,7 +190,7 @@ void trafficLights() {
           }
           case 2: {
             //changeButtonLed(PINE_R_PIN, buttonLedBrightness);
-            changeButtonLed(PINE_Y_PIN, buttonLedBrightness);
+            //changeButtonLed(PINE_Y_PIN, buttonLedBrightness);
             break;
           }
         }
@@ -228,9 +228,9 @@ void trafficLights() {
             break;
           }
           case 2: {
-            changeButtonLed(PINE_R_PIN, 0);
-            changeButtonLed(PINE_Y_PIN, 0);
-            changeButtonLed(PINE_G_PIN, buttonLedBrightness);
+            //changeButtonLed(PINE_R_PIN, 0);
+            //changeButtonLed(PINE_Y_PIN, 0);
+            //changeButtonLed(PINE_G_PIN, buttonLedBrightness);
             break;
           }
         }
@@ -268,8 +268,8 @@ void trafficLights() {
             break;
           }
           case 2: {
-            changeButtonLed(PINE_G_PIN, 0);
-            changeButtonLed(PINE_Y_PIN, buttonLedBrightness);
+            //changeButtonLed(PINE_G_PIN, 0);
+            //changeButtonLed(PINE_Y_PIN, buttonLedBrightness);
             break;
           }
         }

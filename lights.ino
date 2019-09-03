@@ -5,9 +5,9 @@ void setLightsOff() {
   changeButtonLed(MAIN_R_PIN, 0);
   changeButtonLed(MAIN_Y_PIN, 0);
   changeButtonLed(MAIN_G_PIN, 0);
-  changeButtonLed(PINE_R_PIN, 0);
-  changeButtonLed(PINE_Y_PIN, 0);
-  changeButtonLed(PINE_G_PIN, 0);
+  //changeButtonLed(PINE_R_PIN, 0);
+  //changeButtonLed(PINE_Y_PIN, 0);
+  //changeButtonLed(PINE_G_PIN, 0);
 
   setRelayRed(false);
   setRelayAmber(false);
@@ -21,9 +21,9 @@ void setLightsRed() {
   changeButtonLed(MAIN_R_PIN, buttonLedBrightness);
   changeButtonLed(MAIN_Y_PIN, 0);
   changeButtonLed(MAIN_G_PIN, 0);
-  changeButtonLed(PINE_R_PIN, buttonLedBrightness);
-  changeButtonLed(PINE_Y_PIN, 0);
-  changeButtonLed(PINE_G_PIN, 0);
+  //changeButtonLed(PINE_R_PIN, buttonLedBrightness);
+  //changeButtonLed(PINE_Y_PIN, 0);
+  //changeButtonLed(PINE_G_PIN, 0);
   setRelayRed(true);
   setRelayAmber(false);
   setRelayGreen(false);

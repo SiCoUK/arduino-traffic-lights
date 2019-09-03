@@ -69,23 +69,23 @@ timer timers[] {
 rgb_lcd lcd;
 
 // PWM LED Board
-#include "PCA9685.h"
-PCA9685 buttonLed;
+//#include "PCA9685.h"
+//PCA9685 buttonLed;
 
 //The LEDs
-#define MAIN_G_PIN 6    //Main Street green LED pin
-#define MAIN_Y_PIN 5    //Main Street yellow LED pin
+#define MAIN_G_PIN 4    //Main Street green LED pin
+#define MAIN_Y_PIN 3    //Main Street yellow LED pin
 #define MAIN_R_PIN 2    //Main Street red LED pin
-#define PINE_G_PIN 9    //Pine Street green LED pin
-#define PINE_Y_PIN 10    //Pine Street yellow LED pin
-#define PINE_R_PIN 4    //Pine Street red LED pin
+//#define PINE_G_PIN 9    //Pine Street green LED pin
+//#define PINE_Y_PIN 10    //Pine Street yellow LED pin
+//#define PINE_R_PIN 4    //Pine Street red LED pin
 //#define TURN_PIN 16    //Turn left LED pin
-#define WALK_W_PIN 12    //Pedestrian LED pin
-#define WALK_R_PIN 13    //Pedestrian LED pin
-#define WALK_G_PIN 14    //Pedestrian LED pin
+#define WALK_W_PIN 7    //Pedestrian LED pin
+#define WALK_R_PIN 5    //Pedestrian LED pin
+#define WALK_G_PIN 6    //Pedestrian LED pin
 
-#define FLASH_AMBER_PIN 11    //Pedestrian LED pin
-#define MANUAL_PIN 16    //Pedestrian LED pin
+#define FLASH_AMBER_PIN 8    //Pedestrian LED pin
+#define MANUAL_PIN 9    //Pedestrian LED pin
 
 #define BLINK_SPEED 250        //Blink every 250 milliseconds (4 times per seconds)
 unsigned long blinkChrono;     //We will use the Blink Without Delay algorithm (See part 1)

@@ -111,7 +111,7 @@ void blinkAmber() {
     //digitalWrite(pin, !digitalRead(pin));                  //Change pin's value
     changeButtonLed(FLASH_AMBER_PIN, blinkBrightness);
     changeButtonLed(MAIN_Y_PIN, blinkBrightness);
-    changeButtonLed(PINE_Y_PIN, blinkBrightness);
+    //changeButtonLed(PINE_Y_PIN, blinkBrightness);
   }
 }
 
