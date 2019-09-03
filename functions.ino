@@ -42,7 +42,8 @@ void changeCarRelay(boolean channelState, int channel)
  * Change a buttons PWM pulse
  */
 void changeButtonLed(int pin, int brightness) {
-  buttonLed.setPwm(pin, 0, brightness);
+  //buttonLed.setPwm(pin, 0, brightness);
+  analogWrite(pin, brightness);
 }
 
 /**
