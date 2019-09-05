@@ -24,8 +24,8 @@ unsigned long chrono;   //Light changes are triggered by time lapses
 bool manual = false;
 
 // Traffic light sequences (junctions)
-int sequence = 0; // Start sequence (o indexed)
-int sequences = 2; // Total Sequences
+//int sequence = 0; // Start sequence (o indexed)
+//int sequences = 2; // Total Sequences
 
 // Relays
 #include <multi_channel_relay.h>
@@ -87,7 +87,7 @@ rgb_lcd lcd;
 #define FLASH_AMBER_PIN 8    //Pedestrian LED pin
 #define MANUAL_PIN 9    //Pedestrian LED pin
 
-#define BLINK_SPEED 250        //Blink every 250 milliseconds (4 times per seconds)
+#define BLINK_SPEED 333        //Blink every 250 milliseconds (4 times per seconds)
 unsigned long blinkChrono;     //We will use the Blink Without Delay algorithm (See part 1)
 
 //int buttonLedPin = 1;           // the PWM pin the LED is attached to
@@ -159,33 +159,49 @@ void manualLightButtonOnPress(Button& b){
   Serial.print("onPress: ");
   Serial.println(b.pin);
 
-  // If not in manual do nothing
-  /*if (manual == false) {
-    return;
-  }*/
-
   switch(b.pin) {
     case UP_RED_BUTTON: {
       manualState = UP_RED;
       autoState = UP_RED;
+      stateEntered = false;
       break;
     }
     case UP_AMBER_BUTTON: {
-      manualState = UP_AMBER;
-      autoState = UP_AMBER;
+
+      // Decide whether to show red/amber or just amber
+      if (lastUpState == UP_GREEN) {
+        manualState = UP_AMBER;
+        autoState = UP_AMBER;
+      } else if (lastUpState == UP_RED) {
+        manualState = UP_REDAMBER;
+        autoState = UP_REDAMBER;
+      }
+      
+      stateEntered = false;
       break;
     }
     case UP_GREEN_BUTTON: {
       manualState = UP_GREEN;
       autoState = UP_GREEN;
+      stateEntered = false;
       break;
     }
     case PED_RED_BUTTON: {
-      manualState = WALK_OFF;
+      if (manual == true) {
+        manualState = WALK_OFF;
+      } else {
+        autoState = WALK_OFF;
+      }
+      stateEntered = false;
       break;
     }
     case PED_GREEN_BUTTON: {
-      manualState = WALK_ON;
+      if (manual == true) {
+        manualState = WALK_ON;
+      } else {
+        autoState = WALK_ENTER;
+      }
+      stateEntered = false;
       break;
     }
   }
@@ -274,17 +290,22 @@ void setup() {
     digitalWrite(i, LOW);                  //All lights are closed
   }*/
 
+  Wire.begin();
   // PWM BOARD I2C
   // join I2C bus (I2Cdev library doesn't do this automatically)
-  Wire.begin();
-  buttonLed.init(0x7f);
+  /*//buttonLed.init(0x7f);
   // Set freq to 100Hz, range from 24Hz~1526hz
-  buttonLed.setFrequency(100);
+  //buttonLed.setFrequency(100);
   // All on
   for (int i=1; i<=buttonLedPins; i++) {
      buttonLed.setPwm(i, 0, buttonLedBrightness);
   }
   delay(500);
+  // All off
+  for (int i=1; i<=buttonLedPins; i++) {
+     buttonLed.setPwm(i, 0, 0);
+  }
+  // END PWM BOARD*/
   
   bootLcd();
 
@@ -294,12 +315,6 @@ void setup() {
   pinMode(carClockPin, OUTPUT);
   pinMode(carClockLumPin, OUTPUT);
   bootTimer();
-
-  // All off
-  for (int i=1; i<=buttonLedPins; i++) {
-     buttonLed.setPwm(i, 0, 0);
-  }
-  // END PWM BOARD
 
   // Boot Relay
   // Set I2C address and start ped relay0.
