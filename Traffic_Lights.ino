@@ -160,21 +160,24 @@ void manualLightButtonOnPress(Button& b){
   Serial.println(b.pin);
 
   // If not in manual do nothing
-  if (manual == false) {
+  /*if (manual == false) {
     return;
-  }
+  }*/
 
   switch(b.pin) {
     case UP_RED_BUTTON: {
       manualState = UP_RED;
+      autoState = UP_RED;
       break;
     }
     case UP_AMBER_BUTTON: {
       manualState = UP_AMBER;
+      autoState = UP_AMBER;
       break;
     }
     case UP_GREEN_BUTTON: {
       manualState = UP_GREEN;
+      autoState = UP_GREEN;
       break;
     }
     case PED_RED_BUTTON: {
