@@ -133,7 +133,7 @@ Button pedGreenButton = Button(PED_GREEN_BUTTON, BUTTON_PULLUP_INTERNAL);
 bool manualButtonOn = false;
 
 void manualButtonOnPress(Button& b){
-  Serial.print("onPress: ");
+  Serial.print("Manual Button onPress: ");
   Serial.println(b.pin);
   //Serial.println(b.stateChanged());
   
@@ -159,7 +159,7 @@ void manualButtonOnPress(Button& b){
 
 // Manual Button Press Method
 void manualLightButtonOnPress(Button& b){
-  Serial.print("onPress: ");
+  Serial.print("Light Button onPress: ");
   Serial.println(b.pin);
 
   switch(b.pin) {
@@ -215,7 +215,7 @@ void manualLightButtonOnPress(Button& b){
 
 // Detect a pedestrian button press
 void pedButtonOnPress(Button& b){
-    Serial.print("onPress: ");
+    Serial.print("Ped Button onPress: ");
     Serial.println(b.pin);
   
     if (manual == true && pedestrians == true) {
@@ -244,7 +244,7 @@ void pedButtonOnPress(Button& b){
 // Detect a flash button press
 bool flashButtonOn = false;
 void flashButtonOnPress(Button& b){
-  Serial.print("onPress: ");
+  Serial.print("Flash Button onPress: ");
   Serial.println(b.pin);
 
   // Do nothing if the pedestrian request is true
@@ -271,8 +271,8 @@ void blink(byte ID) {
   
   if (millis() - blinkChrono >= BLINK_SPEED) {         //If time has elapsed
     blinkChrono = millis();                              //Reset chrono
-    Serial.println("BLINK");
-    Serial.println(ID);
+    //Serial.println("BLINK");
+    //Serial.println(ID);
     digitalWrite(ID, !digitalRead(ID));                  //Change pin's value
   }
 }
@@ -294,9 +294,9 @@ void setup() {
   }*/
 
   Wire.begin();
-  // PWM BOARD I2C
+  /*// PWM BOARD I2C
   // join I2C bus (I2Cdev library doesn't do this automatically)
-  /*//buttonLed.init(0x7f);
+  //buttonLed.init(0x7f);
   // Set freq to 100Hz, range from 24Hz~1526hz
   //buttonLed.setFrequency(100);
   // All on
@@ -326,6 +326,8 @@ void setup() {
   relayCar.begin(0x21);
   bootRelay();
 
+  bootButtonLed();
+
   //setLightsRed();
   
   //pinMode(switchPin, INPUT_PULLUP);      //Init the switch in PULLUP mode
@@ -337,7 +339,7 @@ void setup() {
   pedButton.pressHandler(pedButtonOnPress);
   pedBoxButton.pressHandler(pedButtonOnPress);
   flashButton.pressHandler(flashButtonOnPress);
-  //llRedButton.pressHandler(allRedButtonOnPress);
+  //allRedButton.pressHandler(allRedButtonOnPress);
   manualButton.pressHandler(manualButtonOnPress);
   
   upRedButton.pressHandler(manualLightButtonOnPress);
@@ -391,6 +393,38 @@ void bootTimer()
   carClock.clear();
 }
 
+void bootButtonLed()
+{
+  Serial.println("Function: Boot Button LED");
+  Serial.println("-- Start Button LED Initialisation --");
+  changeButtonLed(MAIN_R_PIN, buttonLedBrightness);
+  delay(500);
+  changeButtonLed(MAIN_R_PIN, 0);
+  changeButtonLed(MAIN_Y_PIN, buttonLedBrightness);
+  delay(500);
+  changeButtonLed(MAIN_Y_PIN, 0);
+  changeButtonLed(MAIN_G_PIN, buttonLedBrightness);
+  delay(500);
+  changeButtonLed(MAIN_G_PIN, 0);
+  changeButtonLed(MANUAL_PIN, buttonLedBrightness);
+  delay(500);
+  changeButtonLed(MANUAL_PIN, 0);
+  changeButtonLed(FLASH_AMBER_PIN, buttonLedBrightness);
+  delay(500);
+  changeButtonLed(FLASH_AMBER_PIN, 0);
+  changeButtonLed(WALK_R_PIN, buttonLedBrightness);
+  delay(500);
+  changeButtonLed(WALK_R_PIN, 0);
+  changeButtonLed(WALK_G_PIN, buttonLedBrightness);
+  delay(500);
+  changeButtonLed(WALK_G_PIN, 0);
+  changeButtonLed(WALK_W_PIN, buttonLedBrightness);
+  delay(500);
+  changeButtonLed(WALK_W_PIN, 0);
+  
+  Serial.println("-- End Button LED Initialisation --");
+}
+
 // Boot the relays and reset
 void bootRelay() {
   Serial.println("Function: Boot Relays");
@@ -410,7 +444,7 @@ void bootRelay() {
   
   Serial.println("-- End Relay 1 Test --");*/
   
-  Serial.println("Relay Initialisation");
+  Serial.println("-- Start Relay 1 Initialisation --");
   //relayCar.turn_on_channel(1);
   setRelayRed(true);
   delay(500);
@@ -431,5 +465,5 @@ void bootRelay() {
   delay(500);
   //relayCar.turn_off_channel(4);
   setRelayPedWait(false);
-  Serial.println("-- End Relay Initialisation --");
+  Serial.println("-- End Relay 1 Initialisation --");
 }
