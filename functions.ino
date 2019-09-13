@@ -67,18 +67,18 @@ void blinkWalkGreen() {
 
   if (millis() - blinkChrono >= BLINK_SPEED) {         //If time has elapsed
     blinkChrono = millis();                              //Reset chrono
-    Serial.println("BLINK WALK GREEN");
+    //Serial.println("BLINK WALK GREEN");
 
     if (blinkWalkState == true) {
       blinkBrightness = 0;
       blinkWalkState = false;
       //relayPed.turn_off_channel(pedGreenRelay);
-      Serial.println("BLINK WALK GREEN OFF");
+      //Serial.println("BLINK WALK GREEN OFF");
     } else {
       blinkBrightness = buttonLedBrightness;
       blinkWalkState = true;
       //relayPed.turn_on_channel(pedGreenRelay);
-      Serial.println("BLINK WALK GREEN ON");
+      //Serial.println("BLINK WALK GREEN ON");
     }
     
     //digitalWrite(pin, !digitalRead(pin));                  //Change pin's value
@@ -100,12 +100,12 @@ void blinkAmber() {
       blinkBrightness = 0;
       blinkFlashState = false;
       setRelayAmber(false);
-      Serial.println("BLINK AMBER FLASH OFF");
+      //Serial.println("BLINK AMBER FLASH OFF");
     } else {
       blinkBrightness = buttonLedBrightness;
       blinkFlashState = true;
       setRelayAmber(true);
-      Serial.println("BLINK AMBER FLASH ON");
+      //Serial.println("BLINK AMBER FLASH ON");
     }
     
     //digitalWrite(pin, !digitalRead(pin));                  //Change pin's value
