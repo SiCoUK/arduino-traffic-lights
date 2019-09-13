@@ -283,10 +283,10 @@ void trafficLights() {
         
         chrono = millis();
         stateEntered = true;
-        setCountdown(PED_TIMER, 5);
+        setPedCountdown(5);
       }
       
-      runCountdown(PED_TIMER, pedClock);
+      runPedCountdown();
       
       if (millis() - chrono >=  2500) {
         Serial.println("WALK_ON Exit");
@@ -300,7 +300,7 @@ void trafficLights() {
 
       blinkWalkGreen();
 
-      runCountdown(PED_TIMER, pedClock);
+      runPedCountdown();
       
       //if (millis() - chrono >=  2500) {
       if (countdownEnded(PED_TIMER)) {
@@ -308,7 +308,7 @@ void trafficLights() {
         chrono = millis();
         autoState = WALK_OFF;
         
-        pedClock.clear();
+        //pedClock.clear();
       } 
       break;
     }
@@ -334,7 +334,7 @@ void trafficLights() {
 
         // Change all lights to off
         setLightsOff();
-        lcdCarStatus("Amber Flash");
+        lcdCarStatus("Flash");
         
         stateEntered = true;
       }
