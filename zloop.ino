@@ -1,6 +1,7 @@
 void loop() {
   //readSwitch();          //Read the pedestrian switch
   pedButton.process();
+  pedBoxButton.process();
   flashButton.process();
   //allRedButton.process();
   manualButton.process();

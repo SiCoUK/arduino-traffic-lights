@@ -43,11 +43,11 @@ const int pedWaitRelay = 4;
 // Clocks
 #include <TM1637Display.h>
 // Requires 2 pins, one for data and 2 for luminance
-const int pedClockPin = A2;
-const int pedClockLumPin = A3;
-const int carClockPin = A4;
-const int carClockLumPin = A5;
-TM1637Display pedClock(pedClockPin, pedClockLumPin);
+//const int pedClockPin = A2;
+//const int pedClockLumPin = A3;
+const int carClockPin = A2;
+const int carClockLumPin = A3;
+//TM1637Display pedClock(pedClockPin, pedClockLumPin);
 TM1637Display carClock(carClockPin, carClockLumPin);
 
 // Define the timer structure
@@ -73,16 +73,16 @@ rgb_lcd lcd;
 //PCA9685 buttonLed;
 
 //The LEDs
-#define MAIN_G_PIN 4    //Main Street green LED pin
-#define MAIN_Y_PIN 3    //Main Street yellow LED pin
 #define MAIN_R_PIN 2    //Main Street red LED pin
+#define MAIN_Y_PIN 3    //Main Street yellow LED pin
+#define MAIN_G_PIN 4    //Main Street green LED pin
 //#define PINE_G_PIN 9    //Pine Street green LED pin
 //#define PINE_Y_PIN 10    //Pine Street yellow LED pin
 //#define PINE_R_PIN 4    //Pine Street red LED pin
 //#define TURN_PIN 16    //Turn left LED pin
-#define WALK_W_PIN 7    //Pedestrian LED pin
 #define WALK_R_PIN 5    //Pedestrian LED pin
 #define WALK_G_PIN 6    //Pedestrian LED pin
+#define WALK_W_PIN 7    //Pedestrian LED pin
 
 #define FLASH_AMBER_PIN 8    //Pedestrian LED pin
 #define MANUAL_PIN 9    //Pedestrian LED pin
@@ -98,19 +98,21 @@ int buttonLedBrightness = 4000;    // how bright the LED is
 // Buttons
 #include <Button.h>
 
-#define FLASH_BUTTON 26
-#define ALL_RED_BUTTON 40
-#define MANUAL_BUTTON 34
-#define UP_RED_BUTTON 52
-#define UP_AMBER_BUTTON 50
-#define UP_GREEN_BUTTON 48
-#define DOWN_RED_BUTTON 46
-#define DOWN_AMBER_BUTTON 44
-#define DOWN_GREEN_BUTTON 42
+#define UP_RED_BUTTON 36
+#define UP_AMBER_BUTTON 38
+#define UP_GREEN_BUTTON 40
+//#define DOWN_RED_BUTTON 46
+//#define DOWN_AMBER_BUTTON 44
+//#define DOWN_GREEN_BUTTON 42
 
-#define PED_WAIT_BUTTON 28
-#define PED_RED_BUTTON 24
-#define PED_GREEN_BUTTON 32
+#define PED_WAIT_BUTTON 42
+#define PED_WAIT_BOX_BUTTON 12 // Old real WAIT box
+#define PED_RED_BUTTON 44
+#define PED_GREEN_BUTTON 46
+
+#define FLASH_BUTTON 48
+#define MANUAL_BUTTON 50
+//#define ALL_RED_BUTTON 40
 
 Button flashButton = Button(FLASH_BUTTON, BUTTON_PULLUP_INTERNAL);
 //Button allRedButton = Button(ALL_RED_BUTTON, BUTTON_PULLUP_INTERNAL);
@@ -124,6 +126,7 @@ Button upGreenButton = Button(UP_GREEN_BUTTON, BUTTON_PULLUP_INTERNAL);
 //Button downGreenButton = Button(DOWN_GREEN_BUTTON, BUTTON_PULLUP_INTERNAL);
 
 Button pedButton = Button(PED_WAIT_BUTTON, BUTTON_PULLUP_INTERNAL);
+Button pedBoxButton = Button(PED_WAIT_BOX_BUTTON, BUTTON_PULLUP_INTERNAL);
 Button pedRedButton = Button(PED_RED_BUTTON, BUTTON_PULLUP_INTERNAL);
 Button pedGreenButton = Button(PED_GREEN_BUTTON, BUTTON_PULLUP_INTERNAL);
 
@@ -235,7 +238,7 @@ void pedButtonOnPress(Button& b){
   
     pedestrians = true; //Set the pedestrian flag as true (The switch has been clicked)
     setPedLightsWaitOn();
-    lcdPedStatus("Request");
+    lcdPedStatus("Wait");
 }
 
 // Detect a flash button press
@@ -310,8 +313,8 @@ void setup() {
   bootLcd();
 
   // Timers
-  pinMode(pedClockPin, OUTPUT);
-  pinMode(pedClockLumPin, OUTPUT);
+  //pinMode(pedClockPin, OUTPUT);
+  //pinMode(pedClockLumPin, OUTPUT);
   pinMode(carClockPin, OUTPUT);
   pinMode(carClockLumPin, OUTPUT);
   bootTimer();
@@ -332,6 +335,7 @@ void setup() {
 
   // Buttons
   pedButton.pressHandler(pedButtonOnPress);
+  pedBoxButton.pressHandler(pedButtonOnPress);
   flashButton.pressHandler(flashButtonOnPress);
   //llRedButton.pressHandler(allRedButtonOnPress);
   manualButton.pressHandler(manualButtonOnPress);
@@ -366,7 +370,7 @@ void bootTimer()
   Serial.println("Function: Boot Timer");
 
   carClock.setBrightness(0x0f);
-  pedClock.setBrightness(0x0f);
+  //pedClock.setBrightness(0x0f);
 
   //pedClock.init();
   //pedClock.set(BRIGHT_TYPICAL);//BRIGHT_TYPICAL = 2,BRIGHT_DARKEST = 0,BRIGHTEST = 7;
@@ -380,10 +384,10 @@ void bootTimer()
      carClock.showNumberDec(n);
   }*/
 
-  pedClock.showNumberDec(1234);
+  //pedClock.showNumberDec(1234);
   carClock.showNumberDec(1234);
   delay(500);
-  pedClock.clear();
+  //pedClock.clear();
   carClock.clear();
 }
 
