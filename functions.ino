@@ -116,6 +116,22 @@ void blinkAmber() {
 }
 
 /**
+ * int timer The duration of the timer in seconds
+ */
+void setCarCountdown(int timer)
+{
+  setCountdown(CAR_TIMER, timer);
+}
+
+/**
+ * int timer The duration of the timer in seconds
+ */
+void setPedCountdown(int timer)
+{
+  setCountdown(PED_TIMER, timer);
+}
+
+/**
  * Set the time of a countdown timer
  */
 void setCountdown(int timerId, int timer)
@@ -131,6 +147,22 @@ bool countdownEnded(int timerId) {
     return true;
   }
   return false;
+}
+
+/**
+ * int timer The duration of the timer in seconds
+ */
+void runCarCountdown()
+{
+  runCountdown(CAR_TIMER, carClock);
+}
+
+/**
+ * int timer The duration of the timer in seconds
+ */
+void runPedCountdown()
+{
+  runCountdown(PED_TIMER, carClock);
 }
 
 /**
