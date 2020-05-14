@@ -116,8 +116,8 @@ int buttonLedBrightness = 4000;    // how bright the LED is
 
 Button flashButton = Button(FLASH_BUTTON, BUTTON_PULLUP_INTERNAL);
 //Button allRedButton = Button(ALL_RED_BUTTON, BUTTON_PULLUP_INTERNAL);
-
 Button manualButton = Button(MANUAL_BUTTON, BUTTON_PULLUP_INTERNAL);
+
 Button upRedButton = Button(UP_RED_BUTTON, BUTTON_PULLUP_INTERNAL);
 Button upAmberButton = Button(UP_AMBER_BUTTON, BUTTON_PULLUP_INTERNAL);
 Button upGreenButton = Button(UP_GREEN_BUTTON, BUTTON_PULLUP_INTERNAL);
@@ -126,7 +126,7 @@ Button upGreenButton = Button(UP_GREEN_BUTTON, BUTTON_PULLUP_INTERNAL);
 //Button downGreenButton = Button(DOWN_GREEN_BUTTON, BUTTON_PULLUP_INTERNAL);
 
 Button pedButton = Button(PED_WAIT_BUTTON, BUTTON_PULLUP_INTERNAL);
-Button pedBoxButton = Button(PED_WAIT_BOX_BUTTON, BUTTON_PULLUP_INTERNAL);
+Button pedBoxButton = Button(PED_WAIT_BOX_BUTTON);
 Button pedRedButton = Button(PED_RED_BUTTON, BUTTON_PULLUP_INTERNAL);
 Button pedGreenButton = Button(PED_GREEN_BUTTON, BUTTON_PULLUP_INTERNAL);
 
