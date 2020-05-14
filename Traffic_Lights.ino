@@ -27,6 +27,14 @@ bool manual = false;
 //int sequence = 0; // Start sequence (o indexed)
 //int sequences = 2; // Total Sequences
 
+// LED Strip
+#include "FastLED.h"
+#define PED_NUM_LEDS 10
+CRGB leds[PED_NUM_LEDS];
+#define RGBLED_PIN_PED 10
+#define RGBLED_SPEED 50
+unsigned long rgbLedChrono;
+
 // Relays
 #include <multi_channel_relay.h>
 //Multi_Channel_Relay relayPed;
@@ -309,6 +317,26 @@ void setup() {
      buttonLed.setPwm(i, 0, 0);
   }
   // END PWM BOARD*/
+
+  /*// Boot pedestrian led strip
+  FastLED.addLeds<WS2811, RGBLED_PIN_PED, GRB>(leds, PED_NUM_LEDS).setCorrection(TypicalLEDStrip);
+  //bootLedStrip();
+
+  Serial.println("-- Start LED Strip Initialisation --");
+  
+  lcd.setCursor(0, 1);
+  lcd.print("#Boot LED Strip...");
+  
+  colorWipeDelay(0xff,0x00,0x00, 50);
+  colorWipeDelay(0x00,0x00,0x00, 50);
+  
+  //colorWipeDelay(0xff,0xff,0x00, 50);
+  //colorWipeDelay(0x00,0x00,0x00, 50);
+  
+  //colorWipeDelay(0x00,0xff,0x00, 50);
+  //colorWipeDelay(0x00,0x00,0x00, 50);
+
+  Serial.println("-- End LED Strip Initialisation --");*/
   
   bootLcd();
 
@@ -484,4 +512,68 @@ void bootRelay() {
   //relayCar.turn_off_channel(4);
   setRelayPedWait(false);
   Serial.println("-- End Relay 1 Initialisation --");
+}
+
+// LED Effects from https://www.tweaking4all.com/hardware/arduino/adruino-led-strip-effects/
+void showStrip() {
+ #ifdef ADAFRUIT_NEOPIXEL_H
+   // NeoPixel
+   strip.show();
+ #endif
+ #ifndef ADAFRUIT_NEOPIXEL_H
+   // FastLED
+   FastLED.show();
+ #endif
+}
+
+void setPixel(int Pixel, byte red, byte green, byte blue) {
+ #ifdef ADAFRUIT_NEOPIXEL_H
+   // NeoPixel
+   strip.setPixelColor(Pixel, strip.Color(red, green, blue));
+ #endif
+ #ifndef ADAFRUIT_NEOPIXEL_H
+   // FastLED
+   leds[Pixel].r = red;
+   leds[Pixel].g = green;
+   leds[Pixel].b = blue;
+ #endif
+}
+
+void setAll(byte red, byte green, byte blue) {
+  for(int i = 0; i < PED_NUM_LEDS; i++ ) {
+    setPixel(i, red, green, blue);
+  }
+  showStrip();
+}
+
+// Colour wipe with delay (only use during boot)
+void colorWipeDelay(byte red, byte green, byte blue, int SpeedDelay)
+{
+  for(uint16_t i=0; i<PED_NUM_LEDS; i++) {
+    rgbLedChrono = millis(); //Reset chrono    
+    setPixel(i, red, green, blue);
+    showStrip();
+    delay(SpeedDelay);
+  }
+}
+
+// Boot the LED Strip
+void bootLedStrip()
+{
+  Serial.println("-- Start LED Strip Initialisation --");
+  
+  lcd.setCursor(0, 1);
+  lcd.print("#Boot LED Strip...");
+  
+  colorWipeDelay(0xff,0x00,0x00, 50);
+  colorWipeDelay(0x00,0x00,0x00, 50);
+  
+  colorWipeDelay(0xff,0xff,0x00, 50);
+  colorWipeDelay(0x00,0x00,0x00, 50);
+  
+  colorWipeDelay(0x00,0xff,0x00, 50);
+  colorWipeDelay(0x00,0x00,0x00, 50);
+
+  Serial.println("-- End LED Strip Initialisation --");
+
 }
