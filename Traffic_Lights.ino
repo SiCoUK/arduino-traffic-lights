@@ -358,18 +358,26 @@ void setup() {
 // Boot the LCD display
 void bootLcd() {
   Serial.println("Function: Boot LCD");
+  Serial.println("-- Start LCD Initialisation --");
+  
   // set up the LCD's number of columns and rows:
   lcd.begin(16, 2);
   // Print a message to the LCD.
   lcd.print(" Traffic Master");
   lcd.setCursor(0, 1);
   lcd.print("----- 2000 -----");
+
+  Serial.println("-- End LCD Initialisation --");
 }
 
 // Boot Timers
 void bootTimer()
 {
   Serial.println("Function: Boot Timer");
+  Serial.println("-- Start Timer Initialisation --");
+
+  lcd.setCursor(0, 1);
+  lcd.print("#Boot Timers...");
 
   carClock.setBrightness(0x0f);
   //pedClock.setBrightness(0x0f);
@@ -391,12 +399,18 @@ void bootTimer()
   delay(500);
   //pedClock.clear();
   carClock.clear();
+  
+  Serial.println("-- End Timer Initialisation --");
 }
 
 void bootButtonLed()
 {
   Serial.println("Function: Boot Button LED");
   Serial.println("-- Start Button LED Initialisation --");
+
+  lcd.setCursor(0, 1);
+  lcd.print("#Boot Buttons...");
+  
   changeButtonLed(MAIN_R_PIN, buttonLedBrightness);
   delay(500);
   changeButtonLed(MAIN_R_PIN, 0);
@@ -428,6 +442,10 @@ void bootButtonLed()
 // Boot the relays and reset
 void bootRelay() {
   Serial.println("Function: Boot Relays");
+
+  lcd.setCursor(0, 1);
+  lcd.print("#Boot Relays...");
+  
   /*Serial.println("Relay 1 Test");
   relayPed.turn_on_channel(1);
   delay(500);
